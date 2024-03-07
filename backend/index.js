@@ -1,9 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require("cors");
-const mongoose = require("mongoose");
 
 require('./mongo-connection')
+
+const linksRouter = require('./routes/links')
+const indexRouter = require('./routes/index')
 
 
 const app = express()
@@ -11,6 +13,8 @@ app.use(bodyParser.json())
 app.use(cors())
 app.set('view engine', 'pug')
 
+app.use('/links', linksRouter)
+
+app.use('/', indexRouter)
 
 module.exports = app
-
