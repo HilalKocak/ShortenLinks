@@ -81,12 +81,15 @@ html(lang="en")
                         th Clicks
                 tbody
                     tr
-                        td
-                            a(href="https://www.youtube.com/watch?v=SLpUKAGnm-g&ab_channel=WebDevSimplified") https://www.youtube.com/watch?v=SLpUKAGnm-g&ab_channel=WebDevSimplified
+                        each shortUrl in shortUrls
+                            td
+                                a(href=`${shortUrl.full}`) #{shortUrl.full}
+                            
+                            td
+                                a(href=`${shortUrl.short}`) #{shortUrl.short}           
+                            td  #{shortUrl.clicks}
+
                         
-                        td
-                            a(href="/12345") 12345             
-                        td 12
               
         block content 
 

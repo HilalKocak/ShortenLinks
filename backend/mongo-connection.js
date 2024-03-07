@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const connectionString = process.env.MONGODB_CONNECTION_STRING || 'mongodb://localhost/urlShortener';
 
 mongoose.connect(connectionString, {
-  useNewUrlParser: true, 
   useUnifiedTopology: true
 });
 

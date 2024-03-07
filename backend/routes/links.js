@@ -1,10 +1,11 @@
 const { linkService } = require('../services') 
-const Link = require('../models/shortUrl')
+const ShortUrl = require('../models/shortUrl')
 
 const router = require('express').Router()
 
 router.post('/shortUrls', async(req, res)=> {
-
+    await ShortUrl.create({ full: req.body.fullUrl })
+    res.redirect('/')
 })
 
 
