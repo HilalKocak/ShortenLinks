@@ -3,6 +3,16 @@ const { Schema } = mongoose;
 const shortId = require('shortid')
 
 const shortUrlSchema = new Schema({
+  title: {
+    type: String,
+    required: true 
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    autopopulate: true,
+    required: true 
+  },
   full: {
     type: String,
     required: true 

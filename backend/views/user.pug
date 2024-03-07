@@ -1,0 +1,52 @@
+extends layout
+block content 
+    h2 URL Shrinker 
+    .column
+        form(action="/links/shortUrls" method="POST")
+            label(for="title") Title 
+            input(type="text" name="title" id="title")
+            label(for="fullUrl") Url 
+            input(type="url" name="fullUrl" id="fullUrl" required)
+            label(for="code") Code 
+            input(type="text" name="code" id="code")
+            button(type="submit") Shorten URL
+
+
+    h2 Links
+    .column
+        table
+            thead
+                tr
+                    th Full URL
+                    th Short URL
+                    th Clicks
+                    th Edit 
+                    th Details  
+                    th Delete  
+            tbody
+            each shortUrl in shortUrls
+                tr
+                    td
+                        a(href=`${shortUrl.full}`) #{shortUrl.full}
+                    
+                    td
+                        a(href=`${shortUrl.short}`) http://localhost:3000/#{shortUrl.short}
+                    
+                    td  #{shortUrl.clicks}
+
+                    td
+                        button(type="button" onclick=`location.href='links/edit/${shortUrl._id}'`) Edit
+                    td
+                        button(type="button" onclick=`location.href='/links/details/${shortUrl._id}'`) Details
+
+                    td
+                        button(type="button" onclick=`location.href='/links/delete/${shortUrl._id}'`) Delete
+
+                
+            
+    block content 
+
+    script(src="https://unpkg.com/axios/dist/axios.min.js")
+
+
+

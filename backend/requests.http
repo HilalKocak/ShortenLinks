@@ -1,0 +1,18 @@
+POST http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+{"name":"Hilal Kocak", "email":"ab@com"}
+
+###
+POST http://localhost:3000/users/65ea0729f4289cd0f9ad0982/category HTTP/1.1
+content-type: application/json
+
+{"name":"Instagram"}
+
+###
+
+GET http://localhost:3000/users HTTP/1.1
+
+
+###
+GET http://localhost:3000/users/65ea0729f4289cd0f9ad0982/categories HTTP/1.1

@@ -42,13 +42,13 @@ html(lang="en")
                 margin-bottom: 10px;
                 font-weight: bold;
             }
-            input[type="url"] {
-                width: 100%;
-                padding: 8px;
-                margin-bottom: 20px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                box-sizing: border-box;
+            input[type="url"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
             }
             button {
                 background-color: #4CAF50;
@@ -63,38 +63,9 @@ html(lang="en")
             }
     body 
         h1 Welcome to Shorten Links
-        h2 URL Shrinker 
-        .column
-            form(action="/links/shortUrls" method="POST")
-                label(for="fullUrl") Url 
-                input(type="url" name="fullUrl" id="fullUrl" required)
-                button(type="submit") Shorten URL
 
-
-        h2 Links
-        .column
-            table
-                thead
-                    tr
-                        th Full URL
-                        th Short URL
-                        th Clicks
-                tbody
-                each shortUrl in shortUrls
-                    tr
-                        td
-                            a(href=`${shortUrl.full}`) #{shortUrl.full}
-                        
-                        td
-                            a(href=`/links/${shortUrl.short}`) http://localhost:3000/#{shortUrl.short}
-                       
-                        td  #{shortUrl.clicks}
-
-                    
-              
         block content 
 
         script(src="https://unpkg.com/axios/dist/axios.min.js")
 
-
-  
+        

@@ -1,10 +1,9 @@
 const router = require('express').Router()
-const ShortUrl = require('../models/shortUrl')
 
 
-router.get('/', async(req, res) => {
-    const shortUrls = await ShortUrl.find()
-    res.render('index', {shortUrls : shortUrls})
+router.get('/', (req, res) => {
+    res.render('layout')
 })
+
 
 module.exports = router

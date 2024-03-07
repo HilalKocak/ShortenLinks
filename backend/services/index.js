@@ -1,3 +1,6 @@
 const linkService = require('./link-service')
+const categoryService = require('./category-service')
+const userService = require('./user-service')
 
-module.exports = {linkService}
+
+module.exports = {userService, linkService, categoryService}

@@ -3,11 +3,10 @@ const ShortUrl = require('../models/shortUrl')
 
 const router = require('express').Router()
 
-router.post('/shortUrls', async(req, res)=> {
-    await ShortUrl.create({ full: req.body.fullUrl })
-    res.redirect('/')
+router.get('/', async(req, res) => {
+    const shortUrls = await ShortUrl.find({ userId: req.params.userId})
+    res.render('user', {shortUrls : shortUrls})
 })
-
 
 router.get('/:shortUrl', async(req, res) => {
     const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl })
@@ -17,6 +16,13 @@ router.get('/:shortUrl', async(req, res) => {
 
     res.redirect(shortUrl.full)
 })
+
+router.post('/shortUrls', async(req, res)=> {
+    await ShortUrl.create({ full: req.body.fullUrl, short: req.body.code, title:req.body.title })
+    res.redirect('/links')
+})
+
+
 
 
 
