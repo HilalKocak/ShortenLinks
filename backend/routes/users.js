@@ -1,6 +1,7 @@
 
 const {userService, categoryService} = require('../services') 
 const Category = require('../models/category')
+const ShortUrl = require('../models/shortUrl')
 
 
 const router = require('express').Router()
@@ -13,10 +14,14 @@ router.get('/', async(req, res)=> {
 })
 
 router.get('/:userId', async(req, res)=> {
+
     const user = await userService.find(req.params.userId)
     if (!user) return res.status(404).send('Can not find user')
+    const categories = await Category.find({user:req.params.userId});
+    const shortUrls = await ShortUrl.find({ user: req.params.userId})
+
     // res.send(user)
-    res.render('user', {user:user})
+    res.render('user', { user:user, categories:categories, shortUrls:shortUrls })
    
 })
 
@@ -72,5 +77,19 @@ router.patch('/:userId', async (req, res) => {
   res.status(200).json(updatedUser);
 })
 
+router.get('/:userId/:shortUrl', async(req, res) => {
+  const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl, user: req.params.userId})
+  if(shortUrl == null ) return res.sendStatus(404)
+  shortUrl.clicks++
+  await shortUrl.save()
 
+  res.redirect(shortUrl.full)
+})
+
+router.post('/:userId/shortUrls', async(req, res)=> {
+  console.log("req.params.userId ", req.params.userId )
+
+  await ShortUrl.create({ full: req.body.fullUrl, short: req.body.code, title:req.body.title, user:req.params.userId })
+  res.redirect(`/users/${req.params.userId }`)
+})
 module.exports = router

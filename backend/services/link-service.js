@@ -1,8 +1,8 @@
 const BaseService = require('./base-service');
-const Link = require('../models/shortUrl');
+const ShortUrl = require('../models/shortUrl');
 
 class LinkService extends BaseService {
   
 
 }
-module.exports = new LinkService(Link);
+module.exports = new LinkService(ShortUrl);

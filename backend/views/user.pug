@@ -2,7 +2,7 @@ extends layout
 block content 
     h2 URL Shrinker 
     .column
-        form(action="/links/shortUrls" method="POST")
+        form(action=`/users/${user._id}/shortUrls` method="POST")
             label(for="title") Title 
             input(type="text" name="title" id="title")
             label(for="fullUrl") Url 
@@ -30,7 +30,7 @@ block content
                         a(href=`${shortUrl.full}`) #{shortUrl.full}
                     
                     td
-                        a(href=`${shortUrl.short}`) http://localhost:3000/#{shortUrl.short}
+                        a(href=`/users/${user._id}/${shortUrl.short}`) http://localhost:3000/#{shortUrl.short}
                     
                     td  #{shortUrl.clicks}
 
