@@ -5,7 +5,11 @@ const UserSchema = new Schema({
     type: String,
     required: true 
   },
-  email: String
+  email: String,
+  password: {
+    type: String,
+    required: true 
+  },
 });
 
 UserSchema.plugin(require('mongoose-autopopulate'));

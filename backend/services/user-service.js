@@ -6,6 +6,14 @@ class UserService extends BaseService {
         const objects = await this.load();
         return objects.find(o => o.name == name);
     }
+    async getUserByEmail(email) {
+        return await User.findOne({ email: email }).exec();
+    }
+    
+    async getUserById(id) {
+        return await User.findById(id).exec();
+    }
+
 
 }
 
