@@ -16,8 +16,8 @@ initializePassport(
 );
 
 
-router.get('/', (req, res) => {
-    res.render('layout')
+router.get('/', checkAuthenticated, (req, res) => {
+    res.render('layout', {name: req.user.name})
 })
 
 router.get('/login', (req, res) => {
@@ -60,12 +60,10 @@ router.post('/register', async(req, res) => {
     }
 })
 
-// router.get('/:shortUrl', async(req, res) => {
-//     const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl, user: req.params.userId})
-//     if(shortUrl == null ) return res.sendStatus(404)
-//     shortUrl.clicks++
-//     await shortUrl.save()
-  
-//     res.redirect(shortUrl.full)
-//   })
+function checkAuthenticated(req, res, next) {
+   if(req.isAuthenticated()) {
+    return next()
+   }
+   res.redirect('/login')
+}
 module.exports = router
