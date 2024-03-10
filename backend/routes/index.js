@@ -20,11 +20,11 @@ router.get('/', checkAuthenticated, (req, res) => {
     res.render('layout', {name: req.user.name})
 })
 
-router.get('/login', (req, res) => {
+router.get('/login', checkNotAuthenticated, (req, res) => {
     res.render('login')
 })
 
-router.post('/login', (req, res, next) => {
+router.post('/login', checkNotAuthenticated, (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(err);
@@ -42,10 +42,10 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
-router.get('/register', (req, res) => {
+router.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register')
 })
-router.post('/register', async(req, res) => {
+router.post('/register', checkNotAuthenticated, async(req, res) => {
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const user = new User({
@@ -60,10 +60,24 @@ router.post('/register', async(req, res) => {
     }
 })
 
+router.delete('/logout', (req, res, next)=> {
+    req.logOut()
+    res.redirect('/login')
+})
+
 function checkAuthenticated(req, res, next) {
    if(req.isAuthenticated()) {
     return next()
    }
    res.redirect('/login')
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if(req.isAuthenticated()){
+        return res.redirect(`users/${req.user._id}`)
+       
+    }
+    next()
+    
 }
 module.exports = router

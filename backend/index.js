@@ -14,7 +14,7 @@ const linksRouter = require('./routes/links')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const categoriesRouter = require('./routes/category')
-
+const methodOverride = require('method-override')
 const app = express()
 app.use(bodyParser.json())
 
@@ -28,7 +28,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-
+app.use(methodOverride('_method'))
 app.use(passport.session())
 app.use('/links', linksRouter)
 app.use('/users', usersRouter)
