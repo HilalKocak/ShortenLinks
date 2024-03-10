@@ -1,6 +1,6 @@
 extends layout
 block content 
-    form(action=`users/${user._id}/logout?_method=DELETE` method="POST")
+    form(action=`/logout?_method=DELETE` method="POST")
         button(type="submit") Log out
     h2 URL Shrinker 
     .column

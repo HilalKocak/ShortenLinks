@@ -60,10 +60,12 @@ router.post('/register', checkNotAuthenticated, async(req, res) => {
     }
 })
 
-router.delete('/logout', (req, res, next)=> {
-    req.logOut()
-    res.redirect('/login')
-})
+router.delete('/logout', (req, res, next) => {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/login');
+    });
+});
 
 function checkAuthenticated(req, res, next) {
    if(req.isAuthenticated()) {
